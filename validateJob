@@ -1,0 +1,66 @@
+To validate a job in AutoSys, you typically use the `autorep` command to retrieve information about the job and ensure it is configured correctly. Here's how you can do it:
+
+### Steps to Validate a Job in AutoSys:
+
+1. **Check the Job Status:**
+   Use the `autorep` command to check the current status of a job:
+
+   ```bash
+   autorep -j <job_name>
+   ```
+
+   This will show you the status of the job, including its most recent run status, last run time, and other details.
+
+2. **Check the Job's Attributes:**
+   If you want to see the job definition (JIL) for a particular job, you can use the `autorep` command with the `-j` option to get the job's details:
+
+   ```bash
+   autorep -j <job_name> -q
+   ```
+
+   This will display the job's configuration, including its dependencies, command, and scheduling information.
+
+3. **Validate the Job's Syntax (JIL):**
+   To ensure the JIL syntax is correct for the job, you can validate the job definition by using the following command (which will provide any syntax errors or issues with the JIL):
+
+   ```bash
+   jil < <path_to_jil_file>
+   ```
+
+   If the JIL file is valid, it will load the job. If there are errors, AutoSys will output the specific error message.
+
+4. **Check Job History:**
+   To check the history of a job and review its execution logs, use the `autohist` command:
+
+   ```bash
+   autohist -j <job_name> -s <start_date> -e <end_date>
+   ```
+
+   This will display the job's historical run data and help you analyze whether it ran successfully in the past.
+
+5. **Check Job Dependencies:**
+   If the job has dependencies (other jobs that need to complete before it can run), you can check those dependencies using:
+
+   ```bash
+   autorep -j <job_name> -q
+   ```
+
+   This will show you any conditions or dependencies set on the job.
+
+6. **Testing the Job:**
+   To test a job and ensure it's working as expected, you can manually trigger it (even if it’s not its scheduled time) using the `sendevent` command:
+
+   ```bash
+   sendevent -E FORCESTART -J <job_name>
+   ```
+
+   This will force the job to start, bypassing its normal schedule.
+
+### Summary of Useful Commands:
+- `autorep -j <job_name>` - Check job status.
+- `autorep -j <job_name> -q` - Check job details and configuration.
+- `jil < <path_to_jil_file>` - Validate job's JIL syntax.
+- `autohist -j <job_name> -s <start_date> -e <end_date>` - Check job's historical data.
+- `sendevent -E FORCESTART -J <job_name>` - Force start the job.
+
+These steps will help you validate if the job is defined correctly, if it's running as expected, and if there are any issues with its execution.
