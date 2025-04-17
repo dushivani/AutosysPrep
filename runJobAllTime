@@ -1,0 +1,54 @@
+### 🚀 AutoSys JIL to Run Jobs Every Hour (and More!)
+
+If you're working with **AutoSys** and need to schedule jobs that run frequently—say every hour or every 30 minutes—this post is for you. ⏰
+
+🔧 In one of my interviews, I was asked how to schedule a job to run every hour, every day using JIL. Here's how I solved it (plus some handy variations)!
+
+---
+
+### ✅ Run Every Hour (24x7)
+
+```jil
+insert_job: my_hourly_job
+job_type: c
+command: /path/to/your/script.sh
+machine: your_machine_name
+owner: your_user
+permission: gx,wx
+std_out_file: /tmp/my_hourly_job.out
+std_err_file: /tmp/my_hourly_job.err
+alarm_if_fail: 1
+start_mins: 00
+run_calendar: all_days
+```
+
+---
+
+### ⏱ Run Every 30 Minutes
+
+```jil
+start_mins: 00,30
+```
+
+---
+
+### 📅 Run Every Hour But Only Weekdays
+
+```jil
+run_calendar: weekday_calendar
+```
+(Assuming `weekday_calendar` excludes weekends)
+
+---
+
+### 🧠 Pro Tip
+
+If you're using a **box job**, make sure the box is set to `box_terminator: 1` and is scheduled correctly. Otherwise, the command job inside might not run on each interval.
+
+---
+
+📌 **Key Takeaway:** Use `start_mins` for fine-grained control over job timings. Combine it with `run_calendar` to make your schedule smarter!
+
+---
+
+#AutoSys #JIL #JobScheduler #ShellScripting #SupportEngineer #Crontab #DevOps #CommandLine #JobAutomation #UnixTips #TechInterviews
